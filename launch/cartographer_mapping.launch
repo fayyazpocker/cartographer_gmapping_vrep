@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<launch>
+
+  <param name ="/use_sim_time" value="false"/> <!-- unlike gazebo vrep do not publish clock..hence set it as false -->
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find pocker_bot_vrep_description)/urdf/pocker_bot.xacro'" />
+
+<!-- Robot configuration -->
+  <arg name="wheelbase_m" default="0.206" />
+  <arg name="wheel_diameter" default="0.087014"/>
+
+  <param name="wheelbase_m" value="$(arg wheelbase_m)"/>
+  <param name="wheel_diameter" value="$(arg wheel_diameter)"/>
+	
+<!-- Debugging parameters -->
+  <arg name="rviz_flag" default="true" />
+  <arg name="joint_state_publisher_flag" default="true" />
+
+
+  <param name="base_link" value="base_link"/>
+  <param name="odom_frame" value="odom"/>
+  <param name="laser_frame" value="laser_sensor"/>
+  <param name="base_link" value="base_link"/>
+
+  <!-- send fake joint values -->
+ <!--  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="True"/>
+  </node> -->
+
+  <!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+  <node pkg="pocker_bot_vrep_description" type="joint_state_publisher" name="joint_state_publisher" if="$(arg joint_state_publisher_flag)"/>
+
+
+  <node name="cartographer_node" pkg="cartographer_ros"
+    type="cartographer_node" args="
+        -configuration_directory $(find pocker_bot_vrep_description)/configuration_files
+        -configuration_basename new_pocker_cartographer.lua"
+    output="screen">
+  </node>
+
+
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pocker_bot_vrep_description)/rviz/urdf_check.rviz" if="$(arg rviz_flag)"/>
+
+</launch>
