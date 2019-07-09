@@ -72,6 +72,6 @@
 
 
   <!-- Show in Rviz   -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pocker_bot_vrep_description)/rviz/urdf_check.rviz" if="$(arg rviz_flag)"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find cartographer_gmapping_hectorslam)/rviz/visualize.rviz" if="$(arg rviz_flag)"/>
 
 </launch>

@@ -15,6 +15,8 @@
 <!-- Debugging parameters -->
   <arg name="rviz_flag" default="true" />
   <arg name="joint_state_publisher_flag" default="true" />
+  <arg name="cartographer_enable" default="true"/>
+
 
 
   <param name="base_link" value="base_link"/>
@@ -35,13 +37,13 @@
 
   <node name="cartographer_node" pkg="cartographer_ros"
     type="cartographer_node" args="
-        -configuration_directory $(find pocker_bot_vrep_description)/configuration_files
-        -configuration_basename new_pocker_cartographer.lua"
-    output="screen">
+        -configuration_directory $(find cartographer_gmapping_hectorslam)/configuration_files
+        -configuration_basename cartographer.lua"
+    output="screen" if="$(arg cartographer_enable)">
   </node>
 
 
   <!-- Show in Rviz   -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pocker_bot_vrep_description)/rviz/urdf_check.rviz" if="$(arg rviz_flag)"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find cartographer_gmapping_hectorslam)/rviz/visualize.rviz" if="$(arg rviz_flag)"/>
 
 </launch>
