@@ -25,7 +25,7 @@ Publications:
 Change parameters for slam_gmapping node in gmapping_mapping.launch to tune for your platform.
 
 For the given vrep scene, mapping_scene a map similiar to shown below is made.
-
+![alt text](map/mapping_scene_map.pgm)
 
 
 
