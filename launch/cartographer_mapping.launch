@@ -37,13 +37,13 @@
 
   <node name="cartographer_node" pkg="cartographer_ros"
     type="cartographer_node" args="
-        -configuration_directory $(find cartographer_gmapping_hectorslam)/configuration_files
+        -configuration_directory $(find cartographer_gmapping_vrep)/configuration_files
         -configuration_basename cartographer.lua"
     output="screen" if="$(arg cartographer_enable)">
   </node>
 
 
   <!-- Show in Rviz   -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find cartographer_gmapping_hectorslam)/rviz/visualize.rviz" if="$(arg rviz_flag)"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find cartographer_gmapping_vrep)/rviz/visualize.rviz" if="$(arg rviz_flag)"/>
 
 </launch>
